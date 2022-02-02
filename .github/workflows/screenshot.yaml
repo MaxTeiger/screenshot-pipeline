@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: '17'
       - name: Install dependencies
-        run: npm install
+        run: npm install --dev
       - name: Run local web server
         run: pm2 --name HelloWorldApp start npm -- start
       - name: Take screenshot
