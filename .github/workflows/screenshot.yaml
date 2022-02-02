@@ -8,5 +8,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '17'
-      - run: npm install
-      - run: npm start
+      - name: Install dependencies
+        run: npm install
+      - name: Run local web server
+        run: pm2 --name HelloWorldApp start npm -- start
+      - name: Take screenshot
+        run: npm run screenshot
