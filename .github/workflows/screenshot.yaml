@@ -11,8 +11,8 @@ jobs:
       - name: Install dependencies
         run: npm install --include=dev
       - name: Install PM2
-        run: npm i pm2
-      # - name: Run local web server
-      #   run: pm2 --name HelloWorldApp start npm -- start
+        run: npm i -g pm2
+      - name: Run local web server
+        run: pm2 --name HelloWorldApp start npm -- start
       - name: Take screenshot
         run: npm run screenshot
