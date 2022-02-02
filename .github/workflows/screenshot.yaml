@@ -1,0 +1,39 @@
+name: screenshots
+on: [push]
+jobs:
+  update-website-screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '17'
+      - name: Install dependencies
+        run: npm install --include=dev
+      - name: Install PM2
+        run: npm i -g pm2
+      - name: Run local web server
+        run: pm2 --name HelloWorldApp start npm -- start
+      - name: Sleep for 10s
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 10s
+      - name: Take screenshot
+        run: npm run screenshot
+      
+      - name: Check if changes were made
+        run: |
+          ! git diff --quiet
+        
+      - name: setup git config
+        if: success()
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: commit
+        if: success()
+        run: |
+          git add ./img/screenshot.png
+          git commit -m "docs: new screenshot commit"
+          git push origin 
