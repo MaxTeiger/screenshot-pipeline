@@ -1,5 +1,8 @@
 name: screenshots
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 jobs:
   update-website-screenshot:
     runs-on: ubuntu-latest
