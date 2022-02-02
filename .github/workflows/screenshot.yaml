@@ -1,7 +1,7 @@
 name: screenshots
 on: [push]
 jobs:
-  check-bats-version:
+  update-website-screenshot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -10,6 +10,8 @@ jobs:
           node-version: '17'
       - name: Install dependencies
         run: npm install --include=dev
+      - name: Install PM2
+        run: npm i pm2
       - name: Run local web server
         run: pm2 --name HelloWorldApp start npm -- start
       - name: Take screenshot
