@@ -20,3 +20,20 @@ jobs:
           time: 10s
       - name: Take screenshot
         run: npm run screenshot
+      
+      - name: Check if changes were made
+        run: |
+          ! git diff --quiet
+        
+      - name: setup git config
+        if: success()
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: commit
+        if: success()
+        run: |
+          git add ./img/screenshot.png
+          git commit -m "docs: new screenshot commit"
+          git push origin 
