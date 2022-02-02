@@ -14,5 +14,9 @@ jobs:
         run: npm i -g pm2
       - name: Run local web server
         run: pm2 --name HelloWorldApp start npm -- start
+      - name: Sleep for 10s
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 10s
       - name: Take screenshot
         run: npm run screenshot
