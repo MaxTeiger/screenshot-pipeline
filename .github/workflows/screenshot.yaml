@@ -1,15 +1,13 @@
 name: screenshots
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - "**"
 jobs:
   update-website-screenshot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Get branch name
-        run: git branch --show-current
       - uses: actions/setup-node@v2
         with:
           node-version: '17'
@@ -25,11 +23,9 @@ jobs:
           time: 5s
       - name: Take screenshot
         run: npm run screenshot
-      
       - name: Check if changes were made
         run: |
           ! git diff --quiet
-        
       - name: setup git config
         if: success()
         run: |
@@ -41,4 +37,4 @@ jobs:
         run: |
           git add ./img/screenshot.png
           git commit -m "docs: new screenshot commit"
-          git push 
+          git push origin
