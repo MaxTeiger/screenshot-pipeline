@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Get branch name
+        run: git branch --show-current
       - uses: actions/setup-node@v2
         with:
           node-version: '17'
