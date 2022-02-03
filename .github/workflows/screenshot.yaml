@@ -1,5 +1,8 @@
 name: screenshots
-on: [push]
+on:
+  push:
+    branches:
+      - "**"
 jobs:
   update-website-screenshot:
     runs-on: ubuntu-latest
@@ -14,17 +17,15 @@ jobs:
         run: npm i -g pm2
       - name: Run local web server
         run: pm2 --name HelloWorldApp start npm -- start
-      - name: Sleep for 10s
+      - name: Sleep for 5s
         uses: juliangruber/sleep-action@v1
         with:
-          time: 10s
+          time: 5s
       - name: Take screenshot
         run: npm run screenshot
-      
       - name: Check if changes were made
         run: |
           ! git diff --quiet
-        
       - name: setup git config
         if: success()
         run: |
@@ -36,4 +37,4 @@ jobs:
         run: |
           git add ./img/screenshot.png
           git commit -m "docs: new screenshot commit"
-          git push origin 
+          git push origin
